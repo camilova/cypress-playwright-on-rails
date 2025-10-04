@@ -149,11 +149,11 @@ module CypressOnRails
         end
       when :playwright
         if command_exists?('yarn')
-          ['yarn', 'playwright', 'test', '--ui']
+          ['yarn', 'playwright', 'test', '--ui', '--config', playwright_config_path]
         elsif command_exists?('npx')
-          ['npx', 'playwright', 'test', '--ui']
+          ['npx', 'playwright', 'test', '--ui', '--config', playwright_config_path]
         else
-          ['playwright', 'test', '--ui']
+          ['playwright', 'test', '--ui', '--config', playwright_config_path]
         end
       end
     end
@@ -170,11 +170,11 @@ module CypressOnRails
         end
       when :playwright
         if command_exists?('yarn')
-          ['yarn', 'playwright', 'test']
+          ['yarn', 'playwright', 'test', '--config', playwright_config_path]
         elsif command_exists?('npx')
-          ['npx', 'playwright', 'test']
+          ['npx', 'playwright', 'test', '--config', playwright_config_path]
         else
-          ['playwright', 'test']
+          ['playwright', 'test', '--config', playwright_config_path]
         end
       end
     end
@@ -192,6 +192,11 @@ module CypressOnRails
       if hook && hook.respond_to?(:call)
         hook.call
       end
+    end
+
+    def playwright_config_path
+      config.playwright_config_path || 
+        File.join(install_folder, 'playwright.config.js')
     end
   end
 end
