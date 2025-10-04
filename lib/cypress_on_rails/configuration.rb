@@ -23,11 +23,15 @@ module CypressOnRails
     attr_accessor :server_port
     attr_accessor :transactional_server
 
+    # playwright configuration
+    attr_accessor :playwright_config_path
+
     # Attributes for backwards compatibility
     def cypress_folder
       warn "cypress_folder is deprecated, please use install_folder"
       install_folder
     end
+
     def cypress_folder=(v)
       warn "cypress_folder= is deprecated, please use install_folder"
       self.install_folder = v
@@ -62,6 +66,9 @@ module CypressOnRails
       self.server_host = ENV.fetch('CYPRESS_RAILS_HOST', 'localhost')
       self.server_port = ENV.fetch('CYPRESS_RAILS_PORT', nil)
       self.transactional_server = true
+
+      # playwright configuration
+      self.playwright_config_path = nil
     end
 
     def tagged_logged
