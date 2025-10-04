@@ -5,10 +5,10 @@ require 'cypress_on_rails/configuration'
 
 module CypressOnRails
   class Server
-    attr_reader :host, :port, :framework, :install_folder
+    attr_reader :config, :host, :port, :framework, :install_folder
 
     def initialize(options = {})
-      config = CypressOnRails.configuration
+      @config = CypressOnRails.configuration
       
       @framework = options[:framework] || :cypress
       @host = options[:host] || config.server_host
